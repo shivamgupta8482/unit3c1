@@ -19,6 +19,7 @@ function storedata(e){
     let data = JSON.parse(localStorage.getItem("products"))||[];
     data.push(s1);
     localStorage.setItem("products",JSON.stringify(data));
+    window.location.reload();
 
 
 }
