@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+class arr{
+    constructor(){
+        this.length = 0;
+        this.arr=[];
+    }
+    push(el){
+this.arr[this.length]=el;
+this.length++;
+    }
+    pop(){
+        this.arr.pop();
+        this.length--;
+    }
+    top(){
+        console.log(this.arr[this.length-1]);
+    }
+    print(){
+        console.log(this.arr);
+    }
+    printReverse(){
+        console.log(this.arr.reverse());
+    }
+    size(){
+        console.log(this.length);
+    }
+}
+
+let s1 = new arr();
+s1.push(2);
+s1.push(3);
+s1.push(4);
+s1.push(5);
+s1.push(6);
+s1.pop();
+s1.print();
+s1.printReverse();
+s1.size();
+
+</script>
