@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+  </head>
+  <style>
+    #voucher_list{
+display: grid;
+grid-template-columns: repeat(3,1fr);
+gap: 20px;
+    }
+    /* .buy_voucher{
+      color: red;
+    } */
+  </style>
+  <body>
+    <!-- Wallet balence id:- "wallet_balance" (only number). -->
+    <!-- - The voucher card will have class :- "voucher".
+  - All the vouchers will be appended inside div with id "voucher_list".
+  - Buy button will have class:- "buy_voucher"
+  - All the purchased voucher will be stored with key :- "purchase". -->
+<h3 id="wallet_balance"></h3>
+<a href="purchase.html">My Vouchers</a>
+
+<div id="voucher_list">
+
+</div>
+
+
+  </body>
+</html>
+<script>
+
+var obj = JSON.parse(localStorage.getItem("user"));
+
+
+
+var val = document.querySelector("#wallet_balance");
+val.innerText=obj.wallet;
+
+
+async function makerequest(){
+  let res = await fetch("https://masai-vouchers-api.herokuapp.com/api/vouchers");
+  let data = await res.json();
+  append(data[0]["vouchers"]);
+  console.log(data);
+  console.log(data[0]["vouchers"]);
+
+}
+makerequest();
+let d = document.querySelector("#voucher_list")
+function append(data){
+  data.forEach(function(el,index){
+
+let div = document.createElement("div");
+div.setAttribute("class","voucher");
+
+    let img = document.createElement("img");
+img.src = el.image;
+
+let h3 = document.createElement("h3");
+h3.innerText=el.name;
+
+let p =document.createElement("p");
+p.innerText=el.price;
+
+let butt =document.createElement("button");
+butt.innerText="Buy";
+butt.setAttribute("class","buy_voucher");
+butt.addEventListener("click",function(){
+  deletecost(el,index);
+})
+
+div.append(img,h3,p,butt);
+d.append(div);
+
+
+  })
+}
+var arr = JSON.parse(localStorage.getItem("purchase"))||[];
+
+
+  function deletecost(el,index){
+  var obj1 = {
+    name:el.name,
+  image: el.image,
+  price: el.price,
+  
+  };
+  arr.push(obj1);
+  if(obj.wallet>=el.price){
+
+alert("Hurray! purchase successful");
+obj.wallet=Number(obj.wallet)-Number(el.price);
+localStorage.setItem("user",JSON.stringify(obj));
+localStorage.setItem("purchase",JSON.stringify(arr));
+window.location.reload();
+  }
+  else{
+  alert("Sorry! insufficient balance");
+}
+}
+
+
+
+
+
+
+
+</script>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+class Vehicle{
+    constructor(type,regNumber,color){
+        this._type = type;
+        this._regNumber = regNumber;
+        this._color = color;
+    }
+    get type(){
+        return this._type;
+    }
+    set type(value){
+         this._type = value;
+    }
+}
+
+class Car extends Vehicle{
+    constructor (regNumber,color){
+        super("car",regNumber,color);
+    }
+}
+class Bike extends Vehicle{
+    constructor(regNumber,color){
+        super("bike",regNumber,color);
+    }
+}
+class Truck extends Vehicle{
+    constructor(regNumber,color){
+        super("Truck",regNumber,color);
+    }
+}
+
+
+//Parking slots
+
+class Slot{
+    constructor(type,number){
+        this.number = number;
+        this.type = type;
+        this._isBooked = false;
+    }
+    get isBooked(){
+        return this._isBooked;
+    }
+    set isBooked(value){
+        this._isBooked = value;
+    }
+}
+
+class ParkingFloor{
+    constructor(floorNumber,maxSpots){
+ this.floorNumber = floorNumber;
+ this._parkingSpots = [];
+
+for(let i =0;i<maxSpots;i++){
+
+    if(i===0) this._parkingSpots.push(new Slot("car",i));
+        else if(i==1) this._parkingSpots.push(new Slot("bike",i));
+        else this._parkingSpots.push(new Slot("truck",i));
+}
+     
+    }
+
+get parkingSpots() {
+    return this._parkingSpots;
+}
+}
+
+let p1 = new ParkingFloor(0,3);
+console.log(p1);
+
+class parkingLot{
+    constructor(number){
+        this._floor = [];
+        this._numberofFloors = number;
+
+        for(let i =0;i<number;i++){
+            this._floors.push(new ParkingFloor(i,3));
+        }
+    }
+    get _numberofFloors(){
+        return this._numberofFloors;
+    }
+    get floors(){
+        return this._floors;
+    }
+findSlot(type){
+for(let i =0;i<this._numberofFloors;i++){
+for(let slot of this._floor[i]._parkingSpots){
+    if(slot.type==type && !slot.isBooked){
+        return {floorNumber:i,foundSlot:slot};
+    }
+}
+}
+}
+
+
+
+
+
+
+}
+let pl1 = new parkingLot(3);
+console.log(pl1);
+
+class Ticket{
+    constructor(floorNumber,slotNumber){
+        this.floorNumber=floorNumber;
+        this.slotNumber = slotNumber;
+        this.issuedAt = new Date();
+    }
+}
+
+</script>
